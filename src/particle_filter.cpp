@@ -49,9 +49,13 @@ void ParticleFilter::init(double x, double y, double theta, double std[]) {
 		 
 		 particles.push_back(p);
 		 
+		 
+		 weights.push_back(1.0);
+		 
 		 // Print your samples to the terminal.
 		 //cout << "Sample " << i + 1 << " " << sample_x << " " << sample_y << " " << sample_theta << endl;
 	}
+	is_initialized = true;
 }
 
 void ParticleFilter::prediction(double delta_t, double std_pos[], double velocity, double yaw_rate) {
@@ -131,7 +135,6 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
 	
 	
 	for (int particle_num = 0; particle_num < num_particles; particle_num ++){
-		cout<<particle_num<<endl;
 		double ptcl_x = particles[particle_num].x;
 		double ptcl_y = particles[particle_num].y;
 		double ptcl_theta = particles[particle_num].theta;
@@ -186,6 +189,7 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
 											* exp( -( pow(pred_x-trans_obs_x,2)/(2*pow(std_landmark[0], 2)) 
 											+ (pow(pred_y-trans_obs_y,2)/(2*pow(std_landmark[1], 2))) ) );
 		  particles[particle_num].weight *= obs_wgt_each_lndmrk;
+		  weights[particle_num] = particles[particle_num].weight;
 		}
 	}
 }
