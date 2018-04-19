@@ -51,9 +51,6 @@ void ParticleFilter::init(double x, double y, double theta, double std[]) {
 		 
 		 
 		 weights.push_back(1.0);
-		 
-		 // Print your samples to the terminal.
-		 //cout << "Sample " << i + 1 << " " << sample_x << " " << sample_y << " " << sample_theta << endl;
 	}
 	is_initialized = true;
 }
